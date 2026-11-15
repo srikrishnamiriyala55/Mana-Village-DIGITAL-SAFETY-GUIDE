@@ -45,6 +45,14 @@ for (let i = 0; i < 40; i++) {
   a.items.forEach((x) => assert.deepEqual([...x.order].sort(), [0, 1, 2]));
 }
 for (const r of services) assert(new URL(r.url).protocol === "https:");
+assert(videos.length >= 3);
+assert.equal(new Set(videos.map((video) => video.id)).size, videos.length);
+for (const video of videos) {
+  assert.equal(video.language, "te");
+  assert(video.id.trim());
+  assert.equal(new URL(video.sourceUrl).protocol, "https:");
+}
+assert(videos.some((video) => video.id === "YDO5kHMwVbA"));
 console.log(
-  "Content checks passed: 8 bilingual guides, 8 scenarios, 20 quiz questions, resources and attempt integrity.",
+  "Content checks passed: bilingual guides, scenarios, quiz, Telugu videos, resources and attempt integrity.",
 );

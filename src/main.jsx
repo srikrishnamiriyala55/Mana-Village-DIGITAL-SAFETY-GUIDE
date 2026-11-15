@@ -1784,7 +1784,7 @@ function Videos() {
   const { t, online } = useApp();
   const [query, setQuery] = useState("");
   const [topic, setTopic] = useState("all");
-  const [language, setLanguage] = useState("all");
+  const [language, setLanguage] = useState("te");
   const [playing, setPlaying] = useState(null);
   const list = videos.filter(
     (v) =>
@@ -1798,8 +1798,8 @@ function Videos() {
         eyebrow={p("WATCH & LEARN", "చూసి నేర్చుకోండి")}
         title="videos"
         desc={p(
-          "Resources listed by official educational sources. External videos need an internet connection.",
-          "అధికారిక అవగాహన మూలాలు పేర్కొన్న వనరులు. బయటి వీడియోలకు ఇంటర్నెట్ అవసరం.",
+          "Telugu cyber-safety explanations selected for village awareness sessions. External videos need an internet connection.",
+          "గ్రామ అవగాహన కార్యక్రమాల కోసం ఎంపిక చేసిన తెలుగు సైబర్ భద్రత వివరణలు. బయటి వీడియోలకు ఇంటర్నెట్ అవసరం.",
         )}
       />
       <div className="search-field">
@@ -1838,8 +1838,8 @@ function Videos() {
         <Icon name="Info" size={18} />
         {t(
           p(
-            "Spoken language and duration have not been independently verified for these videos, so they are not guessed. Verified Telugu-specific videos have not yet been added.",
-            "ఈ వీడియోల భాష, నిడివిని స్వతంత్రంగా నిర్ధారించలేదు కాబట్టి ఊహించి చూపడం లేదు. నిర్ధారించిన తెలుగు వీడియోలను ఇంకా చేర్చలేదు.",
+            "These awareness videos explain cyber-safety topics in Telugu. Choose a video to load it from YouTube.",
+            "ఈ అవగాహన వీడియోలు సైబర్ భద్రత అంశాలను తెలుగులో వివరిస్తాయి. YouTube నుంచి లోడ్ చేయడానికి వీడియోను ఎంచుకోండి.",
           ),
         )}
       </p>
@@ -1883,7 +1883,9 @@ function Videos() {
               <p>{t(v.desc)}</p>
               <small>
                 {v.organisation} ·{" "}
-                {t(p("Language unverified", "భాష నిర్ధారించలేదు"))}
+                {v.language === "te"
+                  ? t(p("Telugu explanation", "తెలుగు వివరణ"))
+                  : t(p("English explanation", "ఆంగ్ల వివరణ"))}
               </small>
               <a
                 className="arrow-link"
@@ -1891,7 +1893,7 @@ function Videos() {
                 target="_blank"
                 rel="noreferrer"
               >
-                {t(p("Official source page", "అధికారిక మూల పేజీ"))}
+                {t(p("Video source", "వీడియో మూలం"))}
                 <Icon name="ExternalLink" size={16} />
               </a>
               <a
@@ -1911,8 +1913,8 @@ function Videos() {
         <Empty>
           {t(
             p(
-              "No verified videos match these filters yet. Try all topics and languages, or use the offline learning guides.",
-              "ఈ ఎంపికలకు సరిపోయే నిర్ధారించిన వీడియోలు ఇంకా లేవు. అన్ని అంశాలు, భాషలు ఎంచుకోండి లేదా ఆఫ్‌లైన్ పాఠాలు వాడండి.",
+              "No Telugu videos match these filters. Try all topics or use the offline learning guides.",
+              "ఈ ఎంపికలకు సరిపోయే తెలుగు వీడియోలు లేవు. అన్ని అంశాలు ఎంచుకోండి లేదా ఆఫ్‌లైన్ పాఠాలు వాడండి.",
             ),
           )}
         </Empty>
@@ -1925,10 +1927,6 @@ function Videos() {
           ),
         )}
       </p>
-      <Source
-        url="https://www.mygov.in/staysafeonline"
-        organisation="MyGov / MeitY"
-      />
     </div>
   );
 }

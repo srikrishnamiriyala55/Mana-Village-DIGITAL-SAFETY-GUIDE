@@ -33,7 +33,7 @@ Use `localhost`, rather than opening `index.html` as a file. PWA features requir
 - Language switching without resetting the current exercise; three text sizes; keyboard focus; skip link; reduced-motion support; mobile navigation.
 - Optional browser speech. A suitable voice must exist on the device; unavailable voices are clearly explained.
 - Local Telugu fonts, original lightweight SVG village illustration, manifest, generated service worker, cached core lessons/scenarios/quiz and offline indicator.
-- Official resource directory and videos loaded only on request.
+- Official resource directory and Telugu awareness videos loaded only on request.
 
 Only five kinds of values are stored in localStorage under the `mana-` prefix: language, text size, completed lesson IDs, bookmark IDs and quiz progress. Search terms, checklist answers and scenario choices are not persisted. **Reset my progress** removes learning records while preserving language and text-size preferences. To remove preferences too, clear this site's browser storage.
 
@@ -67,7 +67,7 @@ For a guide, edit its title, introduction, numbered steps, caution, question, op
 
 ## Review safety content and resource links
 
-Official sources were reviewed **5 November 2026**:
+Official safety sources were reviewed **5 November 2026**:
 
 - NPCI fraud awareness: https://www.npci.org.in/fraud-awareness
 - NPCI UPI FAQs: https://www.npci.org.in/what-we-do/upi/faqs
@@ -75,13 +75,18 @@ Official sources were reviewed **5 November 2026**:
 - CERT-In phone guidance: https://www.cert-in.org.in/PDF/ISA_Booklet.pdf
 - Ministry of Home Affairs / PIB, financial fraud helpline 1930: https://www.pib.gov.in/Pressreleaseshare.aspx?PRID=1814120&lang=2&reg=48
 - National Cybercrime Reporting Portal: https://www.cybercrime.gov.in/
-- MyGov video source listing: https://www.mygov.in/staysafeonline
 - National Portal of India: https://www.india.gov.in/
 - DigiLocker: https://www.digilocker.gov.in/
 
+Telugu awareness videos were reviewed **15 November 2026**:
+
+- NPCI Telugu UPI fraud awareness video: https://www.youtube.com/watch?v=3gssW1n67GU
+- DSCI Telugu Digital Payment Abhiyan video: https://www.youtube.com/watch?v=mSf0-L7ulD8
+- AP Smart News Telugu cyber-awareness video: https://youtu.be/YDO5kHMwVbA
+
 Keep `sourceOrganisation`, `sourceUrl`, `reviewed` and `topic` metadata with safety content. Before updating a claim or reporting number, open the official source, check that it supports the description and change the review date only after actually reviewing. The visible review label is in `translations.js`; update that and the content metadata together. Do not use a moving “verified today” label. Some official sites require JavaScript and may be temporarily unavailable.
 
-Edit the services and videos arrays in `resources.js`. Each video needs an authentic source listing and a verified YouTube ID. Spoken language and duration could not be independently verified for the included MyGov-listed videos; language is `null`, duration is omitted, and Telugu/English filters show an honest empty state. Playback itself may be restricted or unavailable. Add `language: 'te'` or `'en'` only after verifying the actual audio. Do not invent thumbnails, durations or government endorsements. Additional video topics can be enabled through the existing filter keys.
+Edit the services and videos arrays in `resources.js`. Each video needs an authentic source link, a verified YouTube ID and an accurate language code. The current awareness collection is in Telugu and the page opens with the Telugu filter selected. Playback may still be restricted or unavailable by the publisher. Do not invent thumbnails, durations or government endorsements. Additional video topics can be enabled through the existing filter keys.
 
 ## Add actual project photographs
 

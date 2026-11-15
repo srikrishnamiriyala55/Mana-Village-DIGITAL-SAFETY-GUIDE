@@ -50,31 +50,48 @@ export const services = [
     ),
   },
 ];
-// Videos are linked from MyGov. Spoken language and duration could not be
-// independently established, so neither is guessed. Telugu filter has an honest empty state.
+// Telugu awareness videos selected for the village training programme.
 export const videos = [
   {
-    id: "fX4pv5bsi1M",
-    title: p("Password Security", "పాస్‌వర్డ్ భద్రత"),
-    topic: "privacy",
-    language: null,
-    organisation: "MyGov / MeitY",
-    sourceUrl: "https://www.mygov.in/staysafeonline",
+    id: "YDO5kHMwVbA",
+    title: p(
+      "Clicked it? I became suspicious and stopped",
+      "క్లిక్ చేశావా? అనుమానం వచ్చి ఆపేశా",
+    ),
+    topic: "messages",
+    language: "te",
+    organisation: "AP Smart News",
+    sourceUrl: "https://youtu.be/YDO5kHMwVbA",
     desc: p(
-      "An awareness video listed on the official Stay Safe Online campaign page.",
-      "అధికారిక Stay Safe Online ప్రచార పేజీలో పేర్కొన్న అవగాహన వీడియో.",
+      "A Telugu cyber-awareness video for students about stopping when a link or message feels suspicious.",
+      "లింక్ లేదా సందేశం అనుమానంగా అనిపించినప్పుడు ఆగి పరిశీలించాల్సిన అవసరాన్ని విద్యార్థులకు వివరించే తెలుగు సైబర్ అవగాహన వీడియో.",
     ),
   },
   {
-    id: "j3MjOFzypJ4",
-    title: p("Fake Loan", "నకిలీ రుణం"),
-    topic: "messages",
-    language: null,
-    organisation: "MyGov / MeitY",
-    sourceUrl: "https://www.mygov.in/staysafeonline",
+    id: "3gssW1n67GU",
+    title: p("UPI fraud awareness in Telugu", "తెలుగులో UPI మోసాల అవగాహన"),
+    topic: "payments",
+    language: "te",
+    organisation: "NPCI",
+    sourceUrl: "https://www.youtube.com/watch?v=3gssW1n67GU",
     desc: p(
-      "A video resource on misleading loan offers, listed by MyGov.",
-      "తప్పుదారి పట్టించే రుణ ఆఫర్ల గురించి MyGov పేర్కొన్న వీడియో.",
+      "NPCI explains common UPI fraud methods and the precautions people should follow while making digital payments.",
+      "డిజిటల్ చెల్లింపులు చేసేటప్పుడు ఎదురయ్యే సాధారణ UPI మోసాలు, పాటించాల్సిన జాగ్రత్తలను NPCI తెలుగులో వివరిస్తుంది.",
+    ),
+  },
+  {
+    id: "mSf0-L7ulD8",
+    title: p(
+      "UPI fraud awareness: Digital Payment Abhiyan",
+      "UPI మోసాల అవగాహన: డిజిటల్ పేమెంట్ అభియాన్",
+    ),
+    topic: "payments",
+    language: "te",
+    organisation: "DSCI",
+    sourceUrl: "https://www.youtube.com/watch?v=mSf0-L7ulD8",
+    desc: p(
+      "A Telugu explanation of UPI payment fraud, including the rule that a UPI PIN is entered to send money, not to receive it.",
+      "UPI ద్వారా డబ్బు పంపేటప్పుడే PIN నమోదు చేయాలి, డబ్బు స్వీకరించడానికి PIN అవసరం లేదనే ముఖ్యమైన నియమంతో UPI మోసాలను తెలుగులో వివరిస్తుంది.",
     ),
   },
 ];
