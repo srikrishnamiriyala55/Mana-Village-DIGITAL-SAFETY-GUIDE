@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  createContext,
+  useRef,
+} from "react";
 import { createRoot } from "react-dom/client";
 import {
   BrowserRouter,
@@ -190,7 +196,6 @@ function App() {
   useEffect(() => {
     document.documentElement.lang = lang;
     document.documentElement.dataset.size = size;
-    window.speechSynthesis?.cancel();
   }, [lang, size]);
   useEffect(() => {
     try {
@@ -352,7 +357,6 @@ function ScrollManager() {
   const loc = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
-    window.speechSynthesis?.cancel();
     document.querySelector("main")?.focus({ preventScroll: true });
   }, [loc.pathname]);
   return null;
@@ -989,47 +993,67 @@ function Source({
     </div>
   );
 }
-function Speak({ text }) {
+function Speak({ audioKey }) {
   const { lang, t } = useApp();
-  const [voices, setVoices] = useState([]);
   const [reading, setReading] = useState(false);
-  useEffect(() => {
-    const get = () => setVoices(window.speechSynthesis?.getVoices() || []);
-    get();
-    window.speechSynthesis?.addEventListener("voiceschanged", get);
-    return () => {
-      window.speechSynthesis?.removeEventListener("voiceschanged", get);
-      window.speechSynthesis?.cancel();
-    };
-  }, []);
-  useEffect(() => {
+  const [audioError, setAudioError] = useState(false);
+  const audioRef = useRef(null);
+
+  const stopAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      audioRef.current = null;
+    }
     setReading(false);
-  }, [lang]);
-  const voice = voices.find((v) => v.lang.startsWith(lang));
+  };
+
+  useEffect(() => {
+    stopAudio();
+    setAudioError(false);
+    return stopAudio;
+  }, [lang, audioKey]);
+
+  const playAudio = () => {
+    setAudioError(false);
+    const source = `${import.meta.env.BASE_URL}audio/${lang}/${audioKey}.mp3`;
+    const audio = new Audio(source);
+    audio.preload = "auto";
+    audioRef.current = audio;
+    audio.onended = () => {
+      audioRef.current = null;
+      setReading(false);
+    };
+    audio.onerror = () => {
+      audioRef.current = null;
+      setReading(false);
+      setAudioError(true);
+    };
+    setReading(true);
+    audio.play().catch(() => {
+      audioRef.current = null;
+      setReading(false);
+      setAudioError(true);
+    });
+  };
+
   return (
     <div className="speech">
       <button
         className="button secondary"
-        disabled={!voice}
+        aria-pressed={reading}
         onClick={() => {
           if (reading) {
-            window.speechSynthesis.cancel();
-            setReading(false);
+            stopAudio();
           } else {
-            const u = new SpeechSynthesisUtterance(text);
-            u.voice = voice;
-            u.lang = voice.lang;
-            u.onend = () => setReading(false);
-            u.onerror = () => setReading(false);
-            window.speechSynthesis.speak(u);
-            setReading(true);
+            playAudio();
           }
         }}
       >
         <Icon name="Volume2" />
         {t(reading ? "stop" : "listen")}
       </button>
-      {!voice && <small>{t("noVoice")}</small>}
+      {audioError && <small role="alert">{t("audioError")}</small>}
     </div>
   );
 }
@@ -1056,9 +1080,7 @@ function Lesson() {
         <h1>{t(g.title)}</h1>
         <p className="lead">{t(g.intro)}</p>
       </div>
-      <Speak
-        text={[t(g.title), t(g.intro), ...g.steps.map(t), t(g.care)].join(". ")}
-      />
+      <Speak audioKey={g.id} />
       <ol className="lesson-steps">
         {g.steps.map((s, i) => (
           <li key={i}>
@@ -1798,8 +1820,8 @@ function Videos() {
         eyebrow={p("WATCH & LEARN", "చూసి నేర్చుకోండి")}
         title="videos"
         desc={p(
-          "Telugu cyber-safety explanations selected for village awareness sessions. External videos need an internet connection.",
-          "గ్రామ అవగాహన కార్యక్రమాల కోసం ఎంపిక చేసిన తెలుగు సైబర్ భద్రత వివరణలు. బయటి వీడియోలకు ఇంటర్నెట్ అవసరం.",
+          "Telugu and English cyber-safety explanations selected for village awareness sessions. External videos need an internet connection.",
+          "గ్రామ అవగాహన కార్యక్రమాల కోసం ఎంపిక చేసిన తెలుగు, ఆంగ్ల సైబర్ భద్రత వివరణలు. బయటి వీడియోలకు ఇంటర్నెట్ అవసరం.",
         )}
       />
       <div className="search-field">
@@ -1838,8 +1860,8 @@ function Videos() {
         <Icon name="Info" size={18} />
         {t(
           p(
-            "These awareness videos explain cyber-safety topics in Telugu. Choose a video to load it from YouTube.",
-            "ఈ అవగాహన వీడియోలు సైబర్ భద్రత అంశాలను తెలుగులో వివరిస్తాయి. YouTube నుంచి లోడ్ చేయడానికి వీడియోను ఎంచుకోండి.",
+            "Choose Telugu or English explanations, then select a video to load it from YouTube.",
+            "తెలుగు లేదా ఆంగ్ల వివరణలను ఎంచుకుని, YouTube నుంచి లోడ్ చేయడానికి వీడియోను ఎంచుకోండి.",
           ),
         )}
       </p>
@@ -1913,8 +1935,8 @@ function Videos() {
         <Empty>
           {t(
             p(
-              "No Telugu videos match these filters. Try all topics or use the offline learning guides.",
-              "ఈ ఎంపికలకు సరిపోయే తెలుగు వీడియోలు లేవు. అన్ని అంశాలు ఎంచుకోండి లేదా ఆఫ్‌లైన్ పాఠాలు వాడండి.",
+              "No videos match these filters. Try all topics or languages, or use the offline learning guides.",
+              "ఈ ఎంపికలకు సరిపోయే వీడియోలు లేవు. అన్ని అంశాలు లేదా భాషలు ఎంచుకోండి, లేదా ఆఫ్‌లైన్ పాఠాలు వాడండి.",
             ),
           )}
         </Empty>

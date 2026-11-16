@@ -50,7 +50,7 @@ export const services = [
     ),
   },
 ];
-// Telugu awareness videos selected for the village training programme.
+// Telugu and English awareness videos selected for the village training programme.
 export const videos = [
   {
     id: "YDO5kHMwVbA",
@@ -92,6 +92,33 @@ export const videos = [
     desc: p(
       "A Telugu explanation of UPI payment fraud, including the rule that a UPI PIN is entered to send money, not to receive it.",
       "UPI ద్వారా డబ్బు పంపేటప్పుడే PIN నమోదు చేయాలి, డబ్బు స్వీకరించడానికి PIN అవసరం లేదనే ముఖ్యమైన నియమంతో UPI మోసాలను తెలుగులో వివరిస్తుంది.",
+    ),
+  },
+  {
+    id: "UasqK0JA6co",
+    title: p("UPI fraud awareness", "UPI మోసాల అవగాహన – ఆంగ్లం"),
+    topic: "payments",
+    language: "en",
+    organisation: "NPCI",
+    sourceUrl: "https://www.youtube.com/watch?v=UasqK0JA6co",
+    desc: p(
+      "An English awareness video from NPCI explaining common UPI fraud methods and how to avoid them.",
+      "సాధారణ UPI మోసాల పద్ధతులు, వాటిని ఎలా నివారించాలో NPCI ఆంగ్లంలో వివరించే అవగాహన వీడియో.",
+    ),
+  },
+  {
+    id: "Nq1eq2S9iRQ",
+    title: p(
+      "UPI fraud awareness: Digital Payment Abhiyan",
+      "UPI మోసాల అవగాహన: డిజిటల్ పేమెంట్ అభియాన్ – ఆంగ్లం",
+    ),
+    topic: "payments",
+    language: "en",
+    organisation: "DSCI",
+    sourceUrl: "https://www.youtube.com/watch?v=Nq1eq2S9iRQ",
+    desc: p(
+      "An English explanation of UPI payment fraud, including that a UPI PIN is used to send money and is not required to receive it.",
+      "UPI ద్వారా డబ్బు పంపడానికి PIN వాడతారు, డబ్బు స్వీకరించడానికి PIN అవసరం లేదనే విషయంతో UPI మోసాలను ఆంగ్లంలో వివరిస్తుంది.",
     ),
   },
 ];

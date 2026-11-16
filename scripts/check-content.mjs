@@ -1,3 +1,6 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import assert from "node:assert/strict";
 import { guides } from "../src/data/guides.js";
 import { scenarios } from "../src/data/scenarios.js";
@@ -48,11 +51,31 @@ for (const r of services) assert(new URL(r.url).protocol === "https:");
 assert(videos.length >= 3);
 assert.equal(new Set(videos.map((video) => video.id)).size, videos.length);
 for (const video of videos) {
-  assert.equal(video.language, "te");
+  assert(["en", "te"].includes(video.language));
   assert(video.id.trim());
   assert.equal(new URL(video.sourceUrl).protocol, "https:");
 }
 assert(videos.some((video) => video.id === "YDO5kHMwVbA"));
+assert(videos.filter((video) => video.language === "te").length >= 3);
+assert(videos.filter((video) => video.language === "en").length >= 2);
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+for (const guide of guides) {
+  for (const language of ["en", "te"]) {
+    const audioPath = path.join(
+      root,
+      "public",
+      "audio",
+      language,
+      `${guide.id}.mp3`,
+    );
+    assert(fs.existsSync(audioPath), `Missing lesson audio: ${audioPath}`);
+    assert(
+      fs.statSync(audioPath).size > 1_000,
+      `Empty lesson audio: ${audioPath}`,
+    );
+  }
+}
 console.log(
-  "Content checks passed: bilingual guides, scenarios, quiz, Telugu videos, resources and attempt integrity.",
+  "Content checks passed: bilingual guides and audio, scenarios, quiz, Telugu and English videos, resources and attempt integrity.",
 );

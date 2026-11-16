@@ -7,7 +7,8 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
-    "check": "node scripts/check-content.mjs"
+    "check": "node scripts/check-content.mjs",
+    "generate:audio": "node scripts/generate-lesson-audio.mjs"
   },
   "dependencies": {
     "@fontsource/noto-sans-telugu": "^5.3.0",

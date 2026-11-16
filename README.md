@@ -31,9 +31,9 @@ Use `localhost`, rather than opening `index.html` as a file. PWA features requir
 - Twenty bilingual quiz questions; ten per attempt, shuffled question and answer order, explanations, saved progress and revision links.
 - Search over English and Telugu guides/scenarios and topic filters.
 - Language switching without resetting the current exercise; three text sizes; keyboard focus; skip link; reduced-motion support; mobile navigation.
-- Optional browser speech. A suitable voice must exist on the device; unavailable voices are clearly explained.
-- Local Telugu fonts, original lightweight SVG village illustration, manifest, generated service worker, cached core lessons/scenarios/quiz and offline indicator.
-- Official resource directory and Telugu awareness videos loaded only on request.
+- Bundled English and Telugu narration for every guide, independent of system text-to-speech voices.
+- Local Telugu fonts, original lightweight SVG village illustration, manifest, generated service worker, cached core lessons/scenarios/quiz/audio and offline indicator.
+- Official resource directory and Telugu/English awareness videos loaded only on request.
 
 Only five kinds of values are stored in localStorage under the `mana-` prefix: language, text size, completed lesson IDs, bookmark IDs and quiz progress. Search terms, checklist answers and scenario choices are not persisted. **Reset my progress** removes learning records while preserving language and text-size preferences. To remove preferences too, clear this site's browser storage.
 
@@ -51,9 +51,12 @@ src/
     quiz.js                 Quiz bank and attempt generation
     resources.js            Official links, video configuration, help and gallery
 public/
+  audio/en/                  Bundled English lesson narration
+  audio/te/                  Bundled Telugu lesson narration
   icon.svg                  App icon
   manifest.webmanifest      PWA metadata
 scripts/check-content.mjs   Content integrity checks
+scripts/generate-lesson-audio.mjs  Optional narration regeneration tool
 vite.config.js              Build configuration and generated offline cache
 .openai/hosting.json         Sites identity and static output directory
 dist/                       Generated production files, including sw.js
@@ -84,9 +87,16 @@ Telugu awareness videos were reviewed **15 November 2026**:
 - DSCI Telugu Digital Payment Abhiyan video: https://www.youtube.com/watch?v=mSf0-L7ulD8
 - AP Smart News Telugu cyber-awareness video: https://youtu.be/YDO5kHMwVbA
 
+English awareness videos were reviewed **16 November 2026**:
+
+- NPCI UPI fraud awareness video: https://www.youtube.com/watch?v=UasqK0JA6co
+- DSCI Digital Payment Abhiyan video: https://www.youtube.com/watch?v=Nq1eq2S9iRQ
+
 Keep `sourceOrganisation`, `sourceUrl`, `reviewed` and `topic` metadata with safety content. Before updating a claim or reporting number, open the official source, check that it supports the description and change the review date only after actually reviewing. The visible review label is in `translations.js`; update that and the content metadata together. Do not use a moving “verified today” label. Some official sites require JavaScript and may be temporarily unavailable.
 
-Edit the services and videos arrays in `resources.js`. Each video needs an authentic source link, a verified YouTube ID and an accurate language code. The current awareness collection is in Telugu and the page opens with the Telugu filter selected. Playback may still be restricted or unavailable by the publisher. Do not invent thumbnails, durations or government endorsements. Additional video topics can be enabled through the existing filter keys.
+Edit the services and videos arrays in `resources.js`. Each video needs an authentic source link, a verified YouTube ID and an accurate language code. The page opens with Telugu selected and also offers two English awareness videos. Playback may still be restricted or unavailable by the publisher. Do not invent thumbnails, durations or government endorsements. Additional video topics can be enabled through the existing filter keys.
+
+Lesson narration is stored in `public/audio/en/` and `public/audio/te/`, so playback does not depend on voices installed on the presentation device. To regenerate it, install `edge-tts`, set `PYTHONPATH` if it is installed outside the active Python environment, and run `npm run generate:audio`. The generator uses `en-IN-NeerjaNeural` and `te-IN-ShrutiNeural`.
 
 ## Add actual project photographs
 

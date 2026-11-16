@@ -148,9 +148,9 @@ export const ui = {
   incorrect: pair("Let’s pause and look again.", "ఒక్కసారి ఆగి మళ్లీ చూద్దాం."),
   listen: pair("Listen", "వినండి"),
   stop: pair("Stop reading", "చదవడం ఆపండి"),
-  noVoice: pair(
-    "A suitable reading voice is not available on this device.",
-    "ఈ పరికరంలో ఈ భాషకు సరైన స్వరం అందుబాటులో లేదు.",
+  audioError: pair(
+    "The lesson audio could not play. Check the device volume and try again.",
+    "పాఠం ఆడియో ప్లే కాలేదు. పరికరం వాల్యూమ్‌ను పరిశీలించి మళ్లీ ప్రయత్నించండి.",
   ),
   helpTitle: pair(
     "You can take the next step calmly.",
